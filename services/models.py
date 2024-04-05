@@ -15,7 +15,7 @@ from accounts.models import User
 
 # Email auto
 
-# Address (alpha-numeric) uto
+# Address (alpha-numeric) 
 
 # Postcode ( Alpha-numeric)auto
 # Service type (drop-down, alphabet) required
@@ -24,5 +24,39 @@ from accounts.models import User
 # Photo of the request serices that take in the following format JPEG, PNG, and PDF
 
 
-class Service(models.Model):
-    
+class Service(models.Mode):
+    name = models.CharField(max_length=250, null=True, blank=True)
+    is_deleted = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+class NewService(models.Model):
+
+    REQUEST_STATUS = {
+        'accept': 'accept',
+        'reject': 'reject',
+        'counter': 'counter'
+    }
+
+    service_type = models.ForeignKey(Service, on_delete=models.CASCADE)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer_phone_number = models.CharField(max_length=50, null=True, blank=True)
+    customer_email = models.CharField(max_lenght=100, null=True, blank=True)
+    post_code = models.CharField(max_length=200, null=True, blank=True)
+    job_nature = models.TextField()
+    status = models.CharField(max_length=50, choices=REQUEST_STATUS, default='awaiting...')
+    address = models.TextField(null=True, blank=True)
+    service_picture = models.FileField(upload_to='Service/images')
+    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Service request for {self.service_type.name}"
+
+
+
+
+

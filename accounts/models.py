@@ -60,7 +60,7 @@ class User(AbstractUser, PermissionsMixin):
     email = models.EmailField(db_index=True, unique=True)
     phone_number = models.CharField(max_length=50, null=True, blank=True)
     post_code = models.CharField(max_length=50, null=True, blank=True)
-    role = models.CharField(max_length=10, choices=USER_TYPES)
+    role = models.CharField(max_length=10, choices=USER_TYPES, default='Select a role')
     is_deleted = models.BooleanField(default=False)
     is_subscribed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now=True)
