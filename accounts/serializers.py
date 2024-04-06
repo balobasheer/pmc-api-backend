@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
                     'phone_number', 
                     'post_code',
                     'role',
-                    'is_active',
+                    'is_deleted',
                     'created', 
                     'updated'
                     ]

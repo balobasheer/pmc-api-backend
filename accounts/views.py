@@ -12,11 +12,12 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 
 class UserListAPIView(APIView):
+    permission_class = [IsAuthenticated]
 
     def get(self, request, format=None):
-        user = User.objects.filter(is_active=True)
+        user = User.objects.filter(is_deleted=False)
         serializer = UserSerializer(user, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserRegisterAPIView(generics.CreateAPIView):

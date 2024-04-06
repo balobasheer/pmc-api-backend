@@ -71,7 +71,7 @@ class User(AbstractUser, PermissionsMixin):
     objects = UserManager()
     
     def __str__(self):
-        return f"{self.email}"
+        return f"{self.first_name} {self.last_name}"
         
     # @property
     # def username(self):
