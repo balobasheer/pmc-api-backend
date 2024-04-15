@@ -11,11 +11,20 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 
-class UserListAPIView(APIView):
+class ActiveUsersListAPIView(APIView):
     permission_class = [IsAuthenticated]
 
     def get(self, request, format=None):
         user = User.objects.filter(is_deleted=False)
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class DeletedUsersListAPIView(APIView):
+    permission_class = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        user = User.objects.filter(is_deleted=True)
         serializer = UserSerializer(user, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

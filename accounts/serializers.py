@@ -77,19 +77,19 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         else:
             username = validated_data['email'].split('@')[0]
 
-        user = User.objects.create(
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            username=username,
-            phone_number=validated_data['phone_number'],
-            post_code=validated_data['post_code'],
-            is_subscribed=validated_data['is_subscribed'],
-            role=validated_data['role'],
-           
-        )
-        user.set_password(validated_data['password'])
-        user.save()
+            user = User.objects.create(
+                email=validated_data['email'],
+                first_name=validated_data['first_name'],
+                last_name=validated_data['last_name'],
+                username=username,
+                phone_number=validated_data['phone_number'],
+                post_code=validated_data['post_code'],
+                is_subscribed=validated_data['is_subscribed'],
+                role=validated_data['role'],
+            
+            )
+            user.set_password(validated_data['password'])
+            user.save()
 
         return user
 
